@@ -1,8 +1,7 @@
+import { useRegisterForm } from '@modules/auth/hooks/useRegisterForm';
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { InputText, Button, theme } from 'react-native-hooks';
-import { useRegisterForm } from '../../hooks/useRegisterForm';
-
+import { StyleSheet, Text, View } from 'react-native';
+import { Button, InputText, theme } from 'react-native-hooks';
 
 export function RegisterForm() {
   const {
@@ -23,12 +22,34 @@ export function RegisterForm() {
     <View style={styles.form}>
       {error && <Text style={styles.error}>{error}</Text>}
 
-      <InputText placeholder="Nombre" value={name} onChangeText={handleChangeName} />
-      <InputText placeholder="Apellido" value={lastname} onChangeText={handleChangeLastname} />
-      <InputText placeholder="Correo" value={email} onChangeText={handleChangeEmail} />
-      <InputText placeholder="Contraseña" password value={password} onChangeText={handleChangePassword} />
+      <InputText
+        placeholder="Nombre"
+        value={name}
+        onChangeText={handleChangeName}
+      />
+      <InputText
+        placeholder="Apellido"
+        value={lastname}
+        onChangeText={handleChangeLastname}
+      />
+      <InputText
+        placeholder="Correo"
+        value={email}
+        onChangeText={handleChangeEmail}
+      />
+      <InputText
+        placeholder="Contraseña"
+        password
+        value={password}
+        onChangeText={handleChangePassword}
+      />
 
-      <Button label="Registrarme" variant="filled" onPress={handleSubmit} disabled={loading} />
+      <Button
+        label="Registrarme"
+        variant="filled"
+        onPress={handleSubmit}
+        disabled={loading}
+      />
     </View>
   );
 }

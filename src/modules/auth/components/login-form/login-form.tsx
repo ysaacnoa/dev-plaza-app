@@ -1,7 +1,7 @@
+import { useLoginForm } from '@modules/auth/hooks/useLoginForm';
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { InputText, Button, theme } from 'react-native-hooks';
-import { useLoginForm } from '../../hooks/useLoginForm';
+import { StyleSheet, Text, View } from 'react-native';
+import { Button, InputText, theme } from 'react-native-hooks';
 
 export function LoginForm() {
   const {
@@ -32,7 +32,12 @@ export function LoginForm() {
         onChangeText={handleChangePassword}
       />
 
-      <Button label="Ingresar" variant="filled" onPress={handleSubmit} disabled={loading} />
+      <Button
+        label="Ingresar"
+        variant="filled"
+        onPress={handleSubmit}
+        disabled={loading}
+      />
     </View>
   );
 }

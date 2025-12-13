@@ -1,8 +1,7 @@
-import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 
-import {LoginScreen} from '../modules/auth/screens';
-import {RegisterScreen} from '../modules/auth/screens';
+import { LoginScreen, RegisterScreen } from '@modules/auth/screens';
 import { NavigationProp } from '@react-navigation/native';
 
 export type AuthStackParamList = {

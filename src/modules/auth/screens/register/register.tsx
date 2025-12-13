@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { theme } from 'react-native-hooks';
+import { RegisterForm } from '@modules/auth/components/register-form';
+import { AuthNavigationProp } from '@navigation/auth-stack';
 import { useNavigation } from '@react-navigation/native';
-import { AuthNavigationProp } from '../../../../navigation/auth-stack';
-import { RegisterForm } from '../../components/register-form';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { theme } from 'react-native-hooks';
 
 export function RegisterScreen() {
   const navigation = useNavigation<AuthNavigationProp>();

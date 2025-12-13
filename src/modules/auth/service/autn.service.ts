@@ -1,6 +1,10 @@
-import { createUser } from '../../user/user.service';
-import { loadUser, loadCredentials, saveUser } from '../../user/user-storage';
-import { UserProfile } from '../../user/user.types';
+import {
+  loadCredentials,
+  loadUser,
+  saveUser,
+} from '@modules/user/user-storage';
+import { createUser } from '@modules/user/user.service';
+import { UserProfile } from '@modules/user/user.types';
 
 export interface LoginResultSuccess {
   success: true;
@@ -36,8 +40,10 @@ export class AuthService {
     const creds = await loadCredentials(email);
     const storedUser = await loadUser(email);
 
-    if (!creds || !storedUser) return { success: false, error: 'Usuario no registrado' };
-    if (creds.password !== password) return { success: false, error: 'Contraseña incorrecta' };
+    if (!creds || !storedUser)
+      return { success: false, error: 'Usuario no registrado' };
+    if (creds.password !== password)
+      return { success: false, error: 'Contraseña incorrecta' };
 
     return { success: true, user: storedUser };
   }

@@ -1,7 +1,7 @@
+import { useAuth } from '@modules/auth/hooks/useAuth';
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Button, theme } from 'react-native-hooks';
-import { useAuth } from '../../auth/hooks/useAuth';
 
 export function HomeScreen() {
   const { user, logout } = useAuth();

@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { theme } from 'react-native-hooks';
+import { LoginForm } from '@modules/auth/components/login-form';
+import { AuthNavigationProp } from '@navigation/auth-stack';
 import { useNavigation } from '@react-navigation/native';
-import { AuthNavigationProp } from '../../../../navigation/auth-stack';
-import { LoginForm } from '../../components/login-form';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { theme } from 'react-native-hooks';
 
 export function LoginScreen() {
   const navigation = useNavigation<AuthNavigationProp>();
