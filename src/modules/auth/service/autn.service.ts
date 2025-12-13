@@ -2,8 +2,8 @@ import {
   loadCredentials,
   loadUser,
   saveUser,
-} from '@modules/user/user-storage';
-import { createUser } from '@modules/user/user.service';
+} from '@modules/user/storage/user-storage';
+import { createUser } from '@modules/user/service/user.service';
 import { UserProfile } from '@modules/user/user.types';
 
 export interface LoginResultSuccess {

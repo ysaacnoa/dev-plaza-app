@@ -1,5 +1,5 @@
 import { setItem, getItem, removeItem } from 'react-native-hooks';
-import { UserProfile, UserCredentials } from './user.types';
+import { UserProfile, UserCredentials } from '../user.types';
 
 export const USER_PREFIX = 'user_';
 export const CREDENTIALS_PREFIX = 'creds_';

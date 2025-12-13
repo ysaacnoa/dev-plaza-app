@@ -1,4 +1,4 @@
-import { useUserStore } from '@modules/user/user-store';
+import { useUserStore } from '@modules/user/store/user-store';
 import { useCallback, useState } from 'react';
 import { AuthService } from '../service/autn.service';
 

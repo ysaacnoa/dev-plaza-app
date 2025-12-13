@@ -1,4 +1,4 @@
-import { UserProfile } from './user.types';
+import { UserProfile } from '../user.types';
 import uuid from 'react-native-uuid';
 
 export function createUser(data: { name: string; lastname: string; email: string }): UserProfile {
