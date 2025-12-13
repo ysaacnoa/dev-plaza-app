@@ -1,10 +1,8 @@
 import { useUserStore } from '@modules/user/store/user-store';
 import { useCallback, useState } from 'react';
-import { AuthService } from '../service/autn.service';
+import { AuthService } from '../service/auth.service';
 
-const authService = new AuthService();
-
-export function useAuth() {
+export function useAuth(authService = new AuthService()) {
   const [loading, setLoading] = useState(false);
   const { user, setUser } = useUserStore();
 
@@ -19,11 +17,12 @@ export function useAuth() {
       try {
         const newUser = await authService.register(data);
         setUser(newUser);
+        return newUser; 
       } finally {
         setLoading(false);
       }
     },
-    [setUser],
+    [setUser, authService],
   );
 
   const login = useCallback(
@@ -31,15 +30,16 @@ export function useAuth() {
       setLoading(true);
       try {
         const result = await authService.login(email, password);
+
         if (!result.success) return result;
 
-        setUser(result.user ?? null);
+        setUser(result.user);
         return result;
       } finally {
         setLoading(false);
       }
     },
-    [setUser],
+    [setUser, authService],
   );
 
   const logout = useCallback(async () => {

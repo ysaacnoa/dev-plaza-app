@@ -32,19 +32,18 @@ export class AuthService {
       lastname: data.lastname,
       email: data.email,
     });
+
     await saveUser(newUser, data.password);
     return newUser;
   }
 
   async login(email: string, password: string): Promise<LoginResult> {
-    const creds = await loadCredentials(email);
-    const storedUser = await loadUser(email);
+    const [creds, user] = await Promise.all([loadCredentials(email), loadUser(email)]);
 
-    if (!creds || !storedUser)
-      return { success: false, error: 'Usuario no registrado' };
-    if (creds.password !== password)
-      return { success: false, error: 'Contraseña incorrecta' };
+    if (!creds || !user) return { success: false, error: 'Usuario no registrado' };
 
-    return { success: true, user: storedUser };
+    return creds.password === password
+      ? { success: true, user }
+      : { success: false, error: 'Contraseña incorrecta' };
   }
 }
