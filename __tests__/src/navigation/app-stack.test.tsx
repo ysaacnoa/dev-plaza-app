@@ -2,25 +2,18 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 
 jest.mock('@react-navigation/stack', () => ({
-  createStackNavigator: () => {
-    return {
-      Navigator: ({ children }: any) => <>{children}</>,
-      Screen: ({ component: Component }: any) => <Component />,
-    };
-  },
+  createStackNavigator: () => ({
+    Navigator: ({ children }: any) => <>{children}</>,
+    Screen: ({ component: Component }: any) => <Component />,
+  }),
 }));
 
-jest.mock('@modules/home/screens', () => ({
-  HomeScreen: () => <></>,
+jest.mock('react-native-safe-area-context', () => ({
+  SafeAreaProvider: ({ children }: any) => <>{children}</>,
 }));
-jest.mock('@modules/auth/hooks/useAuth', () => ({
-  useAuth: jest.fn(() => ({
-    user: { id: '1', name: 'Test', lastname: 'User', email: 'test@example.com', createdAt: Date.now() },
-    logout: jest.fn(),
-    login: jest.fn(),
-    register: jest.fn(),
-    isLoggedIn: true,
-  })),
+
+jest.mock('@navigation/bottom-tabs', () => ({
+  BottomTabs: () => <></>,
 }));
 
 import { AppStack } from '@navigation/app-stack';

@@ -1,34 +1,18 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-
-jest.mock('@react-navigation/native', () => ({
-  NavigationContainer: ({ children }: any) => <>{children}</>,
-  useNavigation: jest.fn(),
-  useRoute: jest.fn(),
-}));
-
-jest.mock('@react-navigation/stack', () => ({
-  createStackNavigator: () => {
-    return {
-      Navigator: ({ children }: any) => <>{children}</>,
-      Screen: ({ component: Component }: any) => <Component />,
-    };
-  },
-}));
+import { RootNavigator } from '@navigation/root-navigation';
+import { useAuth } from '@modules/auth/hooks/useAuth';
 
 jest.mock('@modules/auth/hooks/useAuth');
-jest.mock('@modules/home/screens', () => ({
-  HomeScreen: () => <></>,
-}));
-jest.mock('@modules/auth/screens', () => ({
-  LoginScreen: () => <></>,
-  RegisterScreen: () => <></>,
-}));
-
-import { useAuth } from '@modules/auth/hooks/useAuth';
-import { RootNavigator } from '@navigation/root-navigation';
-
 const mockUseAuth = useAuth as jest.Mock;
+
+jest.mock('@navigation/app-stack', () => ({
+  AppStack: () => <></>,
+}));
+
+jest.mock('@navigation/auth-stack', () => ({
+  AuthStack: () => <></>,
+}));
 
 describe('RootNavigator', () => {
   beforeEach(() => {
@@ -45,8 +29,7 @@ describe('RootNavigator', () => {
     });
 
     render(<RootNavigator />);
-
-    // The component should render without errors
+    
     expect(mockUseAuth).toHaveBeenCalled();
   });
 
@@ -66,7 +49,7 @@ describe('RootNavigator', () => {
     });
 
     render(<RootNavigator />);
-
+    
     expect(mockUseAuth).toHaveBeenCalled();
   });
 });
