@@ -1,17 +1,19 @@
-import { HomeScreen } from '@modules/home/screens';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import { BottomTabs } from './bottom-tabs';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export type AppStackParamList = {
-  Home: undefined;
+  Main: undefined;
 };
 
 const Stack = createStackNavigator<AppStackParamList>();
 
 export function AppStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={HomeScreen} />
-    </Stack.Navigator>
+    <SafeAreaProvider>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Main" component={BottomTabs} />
+      </Stack.Navigator>
+    </SafeAreaProvider>
   );
 }
