@@ -8,6 +8,8 @@ module.exports = {
         alias: {
           '@modules': './src/modules',
           '@navigation': './src/navigation',
+          '@assets': './src/assets',
+          '@shared': './src/shared',
         },
       },
     ],

@@ -6,7 +6,9 @@
     "baseUrl": "./src",
     "paths": {
       "@modules/*": ["modules/*"],
-      "@navigation/*": ["navigation/*"]
+      "@navigation/*": ["navigation/*"],
+      "@assets/*": ["assets/*"],
+      "@shared/*": ["shared/*"]
     },
     "strict": true,
     "jsx": "react-native",
