@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 
-import { Icon, type IconName } from './icon';
-import { Card, theme } from 'react-native-hooks';
+import { Icon, type IconName } from '../../../shared/components/icon';
+import { Card } from 'react-native-hooks';
 
 interface CardItem {
   id: string;
@@ -18,7 +18,7 @@ interface GridProps {
 
 export function Grid({ services }: GridProps) {
   return (
-    <View style={styles.container}>
+    <View>
       <FlatList
         data={services}
         renderItem={({ item }) => (
@@ -39,9 +39,6 @@ export function Grid({ services }: GridProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingVertical: theme.spacing.lg,
-  },
   row: {
     flex: 1,
     justifyContent: 'space-between',

@@ -1,1 +1,0 @@
-export { MovementsScreen } from './movements';

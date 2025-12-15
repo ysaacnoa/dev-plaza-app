@@ -1,8 +1,9 @@
 import { useAuth } from '@modules/auth/hooks/useAuth';
-import { Grid, WelcomeSection, type IconName } from '@modules/home/components';
+import { Grid, WelcomeSection } from '@modules/home/components';
 import { HomeStackParamList } from '@navigation/home-stack';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { IconName } from '@shared/components';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { BannerCarousel, theme } from 'react-native-hooks';

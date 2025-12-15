@@ -28,7 +28,7 @@ export function WelcomeSection({ userName }: WelcomeSectionProps) {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: theme.spacing.lg,
-    paddingVertical: theme.spacing.lg,
+    paddingVertical: theme.spacing.md,
     backgroundColor: 'white',
   },
   greetingRow: {

@@ -4,6 +4,7 @@ export type UserProfile = {
   lastname: string;
   email: string;
   createdAt: number;
+  dni?: string;
 };
 
 export type UserCredentials = {
