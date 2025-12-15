@@ -49,6 +49,10 @@ jest.mock('@modules/services', () => ({
   ServicesScreen: () => null,
 }));
 
+jest.mock('@modules/services/components/service-detail', () => ({
+  ServiceDetailScreen: () => null,
+}));
+
 jest.mock('@modules/home/components', () => ({
   Icon: () => null,
 }));
