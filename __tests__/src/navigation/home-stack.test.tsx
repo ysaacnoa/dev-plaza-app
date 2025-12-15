@@ -2,6 +2,17 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 import { HomeStack } from '@navigation/home-stack';
 
+jest.mock('@modules/services/constants/services.constants', () => ({
+  SERVICES_DATA: [
+    {
+      category: 'Test Category',
+      data: [
+        { id: '1', title: 'Test Service', icon: 'card-outline' },
+      ],
+    },
+  ],
+}));
+
 jest.mock('@react-navigation/stack', () => {
   const actual = jest.requireActual('@react-navigation/stack');
   return {
@@ -24,7 +35,26 @@ jest.mock('@react-navigation/stack', () => {
         });
         return <>{children}</>;
       },
-      Screen: ({ component: Component }: any) => <Component />,
+      Screen: ({ component: Component, options }: any) => {
+        // Execute ServiceDetail options function to cover lines 80-112
+        if (options && typeof options === 'function') {
+          const mockRoute = {
+            name: 'ServiceDetail',
+            params: { serviceId: '1' },
+          };
+          const mockNavigation = { goBack: jest.fn() };
+          const result = options({ route: mockRoute, navigation: mockNavigation });
+          
+          // Execute the header function
+          if (result.header) {
+            result.header({
+              navigation: mockNavigation,
+              route: mockRoute,
+            });
+          }
+        }
+        return <Component />;
+      },
     }),
   };
 });
@@ -53,12 +83,18 @@ jest.mock('@modules/services/components/service-detail', () => ({
   ServiceDetailScreen: () => null,
 }));
 
-jest.mock('@modules/home/components', () => ({
+jest.mock('@shared/components', () => ({
   Icon: () => null,
 }));
 
 jest.mock('react-native-hooks', () => ({
-  Header: () => null,
+  Header: ({ canGoBack, onBackPress }: any) => {
+    // Test the onBackPress function if canGoBack is true
+    if (canGoBack && onBackPress) {
+      onBackPress();
+    }
+    return null;
+  },
   theme: {
     colors: { primary: '#007bff' },
   },

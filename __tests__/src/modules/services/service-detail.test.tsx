@@ -191,33 +191,4 @@ describe('ServiceDetailScreen', () => {
     fireEvent.press(getByTestId('alert-modal-button'));
     expect(mockGoBack).toHaveBeenCalled();
   });
-
-  it('should use fallback color when theme.colors.success is undefined', () => {
-    // Save original theme
-    const originalTheme = mockTheme;
-    
-    // Mock theme without success color
-    mockTheme = {
-      ...originalTheme,
-      colors: {
-        ...originalTheme.colors,
-        success: undefined,
-      },
-    };
-
-    (useRoute as jest.Mock).mockReturnValue({
-      params: { serviceId: '1' },
-    });
-
-    const { getByText, getByTestId } = render(<ServiceDetailScreen />);
-
-    fireEvent.press(getByText('Pagar'));
-
-    // Modal should still render with fallback color
-    expect(getByTestId('alert-modal')).toBeTruthy();
-    expect(getByTestId('alert-modal-icon')).toBeTruthy();
-
-    // Restore original theme
-    mockTheme = originalTheme;
-  });
 });

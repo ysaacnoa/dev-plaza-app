@@ -168,6 +168,23 @@ describe('usePagination', () => {
     expect(result.current.loading).toBe(false);
     expect(result.current.data).toEqual([]);
   });
+
+  it('should handle response without totalItems as number', async () => {
+    mockFetch.mockResolvedValueOnce({
+      data: [{ id: 1 }],
+      page: 1,
+      pageSize: 10,
+      totalItems: undefined as any, // Not a number, so line 43 branch won't execute setTotal
+      hasNextPage: false,
+    });
+
+    const { result } = renderHook(() => usePagination<Item>(mockFetch, { pageSize: 10 }));
+
+    await waitFor(() => expect(result.current.data).toHaveLength(1));
+
+    expect(result.current.total).toBe(null); // Should remain null since totalItems wasn't a number
+    expect(result.current.data[0].id).toBe(1);
+  });
 });
 
 describe('usePagination branches coverage', () => {

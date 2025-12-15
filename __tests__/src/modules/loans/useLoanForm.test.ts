@@ -53,6 +53,20 @@ describe('useLoanForm', () => {
     expect(result.current.form.installments).toBe('');
   });
 
+  it('initializes with empty strings when user is null', () => {
+    mockSharedUserState = null;
+    const { result } = renderHook(() => useLoanForm());
+
+    expect(result.current.form.documentType).toBe('DNI');
+    expect(result.current.form.documentNumber).toBe('');
+    expect(result.current.form.email).toBe('');
+    expect(result.current.form.names).toBe('');
+    expect(result.current.form.lastnames).toBe('');
+    expect(result.current.form.phone).toBe('');
+    expect(result.current.form.amount).toBe('');
+    expect(result.current.form.installments).toBe('');
+  });
+
   it('updates field and trims value', () => {
     const { result } = renderHook(() => useLoanForm());
 
