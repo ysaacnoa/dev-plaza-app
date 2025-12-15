@@ -1,4 +1,5 @@
 import { useLoginForm } from '@modules/auth/hooks/useLoginForm';
+import { Icon } from '@shared/components';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button, InputText, theme } from 'react-native-hooks';
@@ -23,6 +24,8 @@ export function LoginForm() {
         keyboardType="email-address"
         value={email}
         onChangeText={handleChangeEmail}
+        iconClear={<Icon name='close-circle'/>}
+        clearable
       />
 
       <InputText
@@ -30,6 +33,8 @@ export function LoginForm() {
         password
         value={password}
         onChangeText={handleChangePassword}
+        clearable
+        iconClear={<Icon name='close-circle'/>}
       />
 
       <Button

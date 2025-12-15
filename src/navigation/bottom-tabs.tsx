@@ -5,40 +5,16 @@ import { ChatScreen } from '@modules/chat';
 import { SettingsScreen } from '@modules/settings';
 import { Icon } from '@shared/components';
 import { theme } from 'react-native-hooks';
-import { IoniconsIconName } from '@react-native-vector-icons/ionicons';
+import { BottomTabParamList, TAB_CONFIG } from './constants/navigation.constants';
 
-export type BottomTabParamList = {
-  HomeTab: undefined;
-  Chat: undefined;
-  Settings: undefined;
-};
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
-const tabConfig: Record<
-  keyof BottomTabParamList,
-  {
-    label: string;
-    icon: IoniconsIconName;
-  }
-> = {
-  HomeTab: {
-    label: 'Inicio',
-    icon: 'home',
-  },
-  Chat: {
-    label: 'Chat',
-    icon: 'chatbubble',
-  },
-  Settings: {
-    label: 'Configuración',
-    icon: 'settings',
-  },
-};
+
 
 export const renderTabIcon = (tabName: keyof BottomTabParamList, color: string) => (
   <Icon
-    name={tabConfig[tabName].icon}
+    name={TAB_CONFIG[tabName].icon}
     color={color}
     size={24}
   />
@@ -72,7 +48,7 @@ export function BottomTabs() {
         component={HomeStack}
         options={{
           ...screenOptions,
-          title: tabConfig.HomeTab.label,
+          title: TAB_CONFIG.HomeTab.label,
           tabBarIcon: ({ color }) => renderTabIcon('HomeTab', color),
         }}
       />
@@ -81,7 +57,7 @@ export function BottomTabs() {
         component={ChatScreen}
         options={{
           ...screenOptions,
-          title: tabConfig.Chat.label,
+          title: TAB_CONFIG.Chat.label,
           tabBarIcon: ({ color }) => renderTabIcon('Chat', color),
         }}
       />
@@ -90,7 +66,7 @@ export function BottomTabs() {
         component={SettingsScreen}
         options={{
           ...screenOptions,
-          title: tabConfig.Settings.label,
+          title: TAB_CONFIG.Settings.label,
           tabBarIcon: ({ color }) => renderTabIcon('Settings', color),
         }}
       />
