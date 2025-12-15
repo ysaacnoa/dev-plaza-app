@@ -10,19 +10,27 @@ interface IconProps {
   size?: number;
   color?: string;
   style?: ViewStyle;
+  testID?: string;
 }
 
 /**
  * Icon component - Wrapper for react-native-vector-icons/ionicons
  * Provides consistent icon usage across the app
  */
-export function Icon({ name, size = 24, color = theme.colors.primary, style }: IconProps) {
+export function Icon({
+  name,
+  size = 24,
+  color = theme.colors.primary,
+  style,
+  testID,
+}: IconProps) {
   return (
     <Ionicons
       name={name}
       size={size}
       color={color}
       style={style}
+      testID={testID ?? `icon-${name}`}
     />
   );
 }
