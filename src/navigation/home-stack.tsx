@@ -4,15 +4,13 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import {
-  HomeScreen,
-  CreditCardScreen,
-  MovementsScreen,
-  LoansScreen,
-  ServicesScreen,
-} from '@modules/home/screens';
-import { Icon, IconName } from '@modules/home/components';
+import { HomeScreen } from '@modules/home';
+import { Icon, IconName } from '@shared/components';
 import { Header, theme } from 'react-native-hooks';
+import { MovementsScreen } from '@modules/movements';
+import { ServicesScreen } from '@modules/services';
+import { CreditCardScreen } from '@modules/credit-card';
+import { LoansScreen } from '@modules/loans';
 
 export type HomeStackParamList = {
   Home: undefined;

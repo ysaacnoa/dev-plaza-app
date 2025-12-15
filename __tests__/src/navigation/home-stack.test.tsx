@@ -33,11 +33,19 @@ jest.mock('react-native-safe-area-context', () => ({
   useSafeAreaInsets: () => ({ top: 44, bottom: 34 }),
 }));
 
-jest.mock('@modules/home/screens', () => ({
+jest.mock('@modules/home', () => ({
   HomeScreen: () => null,
+}));
+jest.mock('@modules/credit-card', () => ({
   CreditCardScreen: () => null,
+}));
+jest.mock('@modules/movements', () => ({
   MovementsScreen: () => null,
+}));
+jest.mock('@modules/loans', () => ({
   LoansScreen: () => null,
+}));
+jest.mock('@modules/services', () => ({
   ServicesScreen: () => null,
 }));
 

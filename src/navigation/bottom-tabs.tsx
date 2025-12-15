@@ -1,9 +1,9 @@
 import { createBottomTabNavigator, BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { HomeStack } from './home-stack';
-import { ChatScreen } from '@modules/chat/screens';
-import { SettingsScreen } from '@modules/settings/screens';
-import { Icon } from '@modules/home/components';
+import { ChatScreen } from '@modules/chat';
+import { SettingsScreen } from '@modules/settings';
+import { Icon } from '@shared/components';
 import { theme } from 'react-native-hooks';
 import { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 

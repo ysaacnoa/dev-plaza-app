@@ -20,8 +20,8 @@ jest.mock('react-native-safe-area-context', () => ({
 }));
 
 jest.mock('@navigation/home-stack', () => ({ HomeStack: () => null }));
-jest.mock('@modules/chat/screens', () => ({ ChatScreen: () => null }));
-jest.mock('@modules/settings/screens', () => ({ SettingsScreen: () => null }));
+jest.mock('@modules/chat', () => ({ ChatScreen: () => null }));
+jest.mock('@modules/settings', () => ({ SettingsScreen: () => null }));
 jest.mock('@modules/home/components', () => ({ Icon: () => null }));
 jest.mock('react-native-hooks', () => ({
   theme: {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import { HomeScreen } from '@modules/home/screens';
 import { useAuth } from '@modules/auth/hooks/useAuth';
 import { useNavigation } from '@react-navigation/native';
+import { HomeScreen } from '@modules/home';
 
 jest.mock('@modules/auth/hooks/useAuth');
 jest.mock('@react-navigation/native', () => ({
