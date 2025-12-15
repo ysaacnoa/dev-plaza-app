@@ -1,4 +1,4 @@
-import { validateLoanForm } from "@modules/loans/validator/loan-form.validator";
+import { validateLoanForm } from '@modules/loans/validator/loan-form.validator';
 
 describe('validateLoanForm', () => {
   const baseValidForm = {
@@ -32,7 +32,9 @@ describe('validateLoanForm', () => {
       ...baseValidForm,
       documentNumber: '12345', // menos de 8
     });
-    expect(result.errors.documentNumber).toBe('El DNI debe tener exactamente 8 dígitos');
+    expect(result.errors.documentNumber).toBe(
+      'El DNI debe tener exactamente 8 dígitos',
+    );
   });
 
   it('validates Pasaporte min length and alphanumeric', () => {
@@ -41,7 +43,9 @@ describe('validateLoanForm', () => {
       documentType: 'Pasaporte',
       documentNumber: 'ABC', // menos de 6
     });
-    expect(result.errors.documentNumber).toBe('El pasaporte debe tener al menos 6 caracteres');
+    expect(result.errors.documentNumber).toBe(
+      'El pasaporte debe tener al menos 6 caracteres',
+    );
 
     result = validateLoanForm({
       ...baseValidForm,
@@ -64,13 +68,17 @@ describe('validateLoanForm', () => {
       ...baseValidForm,
       phone: '812345678',
     });
-    expect(result.errors.phone).toBe('El celular debe empezar con 9 y tener 9 dígitos');
+    expect(result.errors.phone).toBe(
+      'El celular debe empezar con 9 y tener 9 dígitos',
+    );
 
     result = validateLoanForm({
       ...baseValidForm,
       phone: '91234567', // 8 dígitos
     });
-    expect(result.errors.phone).toBe('El celular debe empezar con 9 y tener 9 dígitos');
+    expect(result.errors.phone).toBe(
+      'El celular debe empezar con 9 y tener 9 dígitos',
+    );
   });
 
   it('validates names and lastnames are not empty', () => {
@@ -107,5 +115,36 @@ describe('validateLoanForm', () => {
       installments: '',
     });
     expect(result.errors.installments).toBe('Selecciona el número de cuotas');
+  });
+
+  it('validates empty documentType', () => {
+    const result = validateLoanForm({
+      ...baseValidForm,
+      documentType: '' as any,
+    });
+    expect(result.errors.documentType).toBe('Selecciona tipo de documento');
+  });
+
+  it('validates empty documentNumber', () => {
+    const result = validateLoanForm({
+      ...baseValidForm,
+      documentNumber: '   ',
+    });
+    expect(result.errors.documentNumber).toBe('Ingresa tu número de documento');
+  });
+
+  it('validates empty email', () => {
+    const result = validateLoanForm({ ...baseValidForm, email: '' });
+    expect(result.errors.email).toBe('Ingresa tu correo electrónico');
+  });
+
+  it('validates empty phone', () => {
+    const result = validateLoanForm({ ...baseValidForm, phone: '' });
+    expect(result.errors.phone).toBe('Ingresa tu número de celular');
+  });
+
+  it('validates empty amount', () => {
+    const result = validateLoanForm({ ...baseValidForm, amount: '' });
+    expect(result.errors.amount).toBe('Ingresa el monto deseado');
   });
 });

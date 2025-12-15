@@ -36,7 +36,7 @@ const tabConfig: Record<
   },
 };
 
-const renderTabIcon = (tabName: keyof BottomTabParamList, color: string) => (
+export const renderTabIcon = (tabName: keyof BottomTabParamList, color: string) => (
   <Icon
     name={tabConfig[tabName].icon}
     color={color}

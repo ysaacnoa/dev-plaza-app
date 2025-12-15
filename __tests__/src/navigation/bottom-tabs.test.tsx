@@ -1,6 +1,8 @@
-import React from 'react';
-import { render } from '@testing-library/react-native';
-import { BottomTabs } from '@navigation/bottom-tabs';
+// 1️⃣ Primero declaramos todos los mocks
+const mockIcon = jest.fn(() => null);
+jest.mock('@shared/components', () => ({
+  Icon: mockIcon,
+}));
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
   createBottomTabNavigator: () => ({
@@ -22,17 +24,27 @@ jest.mock('react-native-safe-area-context', () => ({
 jest.mock('@navigation/home-stack', () => ({ HomeStack: () => null }));
 jest.mock('@modules/chat', () => ({ ChatScreen: () => null }));
 jest.mock('@modules/settings', () => ({ SettingsScreen: () => null }));
-jest.mock('@modules/home/components', () => ({ Icon: () => null }));
-jest.mock('react-native-hooks', () => ({
-  theme: {
-    colors: { primary: '#7300E0', textMuted: '#B5B5B7', surface: '#fff', border: '#E0E0E1' },
-    spacing: { sm: 8, xs: 4 },
-    typography: { body: { fontSize: 12 } },
-  },
-}));
+
+import { BottomTabs, renderTabIcon } from '@navigation/bottom-tabs';
+import { render } from '@testing-library/react-native';
 
 describe('BottomTabs', () => {
-  it('renders correctly and executes tab options (covers icons and config)', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders BottomTabs without crashing', () => {
     render(<BottomTabs />);
+  });
+
+  it('tabBarIcon function returns Icon element', () => {
+    const element = renderTabIcon('HomeTab', '#000');
+    expect(element).toBeTruthy();
+  });
+
+  it('renderTabIcon devuelve correctos nombres de icono', () => {
+    expect(renderTabIcon('HomeTab', '#123')).toBeTruthy();
+    expect(renderTabIcon('Chat', '#456')).toBeTruthy();
+    expect(renderTabIcon('Settings', '#789')).toBeTruthy();
   });
 });

@@ -15,16 +15,21 @@ export function usePagination<T>(
 
   const pageRef = useRef(1);
   const hasMoreRef = useRef(true);
-  const loadRef = useRef<
-    ((pageToLoad: number, replace?: boolean) => void) | null
-  >(null);
 
   const fetchFunctionRef = useRef(fetchFunction);
   const pageSizeRef = useRef(pageSize);
 
+  const loadRef = useRef<
+    | ((
+        pageToLoad: number,
+        replace?: boolean,
+      ) => Promise<PaginatedResponse<T> | null>)
+    | null
+  >(null);
+
   useEffect(() => {
     loadRef.current = async (pageToLoad: number, replace = false) => {
-      if (loading) return;
+      if (loading) return null;
 
       setLoading(true);
       setError(null);
@@ -35,7 +40,7 @@ export function usePagination<T>(
           pageSizeRef.current,
         );
 
-        if (result.totalItems !== undefined) {
+        if (typeof result.totalItems === 'number') {
           setTotal(result.totalItems);
         }
 
@@ -43,8 +48,12 @@ export function usePagination<T>(
 
         pageRef.current = pageToLoad;
         hasMoreRef.current = result.hasNextPage;
-      } catch (err: any) {
-        setError(err.message || 'Error cargando datos');
+
+        return result;
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        setError(message);
+        return null;
       } finally {
         setLoading(false);
       }
@@ -54,15 +63,13 @@ export function usePagination<T>(
   const refresh = () => {
     pageRef.current = 1;
     hasMoreRef.current = true;
-    loadRef.current?.(1, true);
+    return loadRef.current?.(1, true);
   };
 
   const loadMore = () => {
-    if (loading) return;
-    if (!hasMoreRef.current) return;
-
+    if (loading || !hasMoreRef.current) return;
     const nextPage = pageRef.current + 1;
-    loadRef.current?.(nextPage);
+    return loadRef.current?.(nextPage);
   };
 
   useEffect(() => {

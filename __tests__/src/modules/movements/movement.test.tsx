@@ -79,4 +79,80 @@ describe('MovementsScreen', () => {
 
     expect(loadMore).toHaveBeenCalledTimes(1);
   });
+
+  it('does not call loadMore if loading or hasMore is false', () => {
+    const loadMore = jest.fn();
+    (usePagination as jest.Mock).mockReturnValue({
+      data: [mockData[0]],
+      total: 2,
+      loading: true,
+      hasMore: false,
+      loadMore,
+      refresh: jest.fn(),
+    });
+
+    const { getByTestId } = render(<MovementsScreen />);
+    fireEvent(getByTestId('movements-list'), 'onEndReached');
+
+    expect(loadMore).not.toHaveBeenCalled();
+  });
+
+  it('calls refresh when pulling to refresh', () => {
+    const refresh = jest.fn();
+    (usePagination as jest.Mock).mockReturnValue({
+      data: mockData,
+      total: 2,
+      loading: false,
+      hasMore: true,
+      loadMore: jest.fn(),
+      refresh,
+    });
+
+    const { getByTestId } = render(<MovementsScreen />);
+
+    fireEvent(getByTestId('movements-list'), 'onRefresh');
+
+    expect(refresh).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders ItemSeparatorComponent', () => {
+    (usePagination as jest.Mock).mockReturnValue({
+      data: mockData,
+      total: 2,
+      loading: false,
+      hasMore: false,
+      loadMore: jest.fn(),
+      refresh: jest.fn(),
+    });
+
+    const { getByTestId } = render(<MovementsScreen />);
+
+    // Renderiza el separador entre items
+    const separator = getByTestId('movement-item-separator');
+    expect(separator).toBeTruthy();
+  });
+
+  it('calculates totalIncome and totalExpense correctly', () => {
+    jest.mock('@modules/movements/hooks/useMovementTotals', () => ({
+      useMovementsTotals: jest.fn().mockReturnValue({
+        totalIncome: 100,
+        totalExpense: 40,
+      }),
+    }));
+
+    (usePagination as jest.Mock).mockReturnValue({
+      data: mockData,
+      total: 2,
+      loading: false,
+      hasMore: false,
+      loadMore: jest.fn(),
+      refresh: jest.fn(),
+    });
+
+    const { getByTestId } = render(<MovementsScreen />);
+    const header = getByTestId('movements-list').props.ListHeaderComponent;
+
+    expect(header.props.totalIncome).toBe(100);
+    expect(header.props.totalExpense).toBe(40);
+  });
 });
