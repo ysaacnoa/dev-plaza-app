@@ -6,45 +6,40 @@ export const getItem = jest.fn();
 export const removeItem = jest.fn();
 
 export const theme = {
+  colors: {
+    primary: '#000',
+    white: '#fff',
+    success: 'green',
+    danger: 'red',
+    surface: '#fff',
+    textMuted: '#999',
+    border: '#ccc',
+  },
   spacing: {
+    none: 0,
     xs: 4,
     sm: 8,
     md: 12,
     lg: 16,
     xl: 24,
-    xxl: 32,
   },
-  colors: {
-    primary: '#007AFF',
-    secondary: '#5AC8FA',
-    danger: '#FF3B30',
-    warning: '#FF9500',
-    success: '#34C759',
-    surface: '#FFFFFF',
-    text: '#000000',
-    textSecondary: '#666666',
-    border: '#E5E5EA',
-    background: '#F2F2F7',
+  radius: {
+    sm: 4,
+    md: 8,
+    lg: 12,
   },
   typography: {
     title: {
-      fontSize: 24,
-      fontWeight: 'bold',
+      fontSize: 20,
+      fontWeight: '700',
     },
-    subtitle: {
-      fontSize: 18,
-      fontWeight: '600',
-    },
-    body: {
+    label: {
       fontSize: 14,
-      fontWeight: '400',
-    },
-    caption: {
-      fontSize: 12,
-      fontWeight: '400',
+      fontWeight: '500',
     },
   },
 };
+
 
 export const Button = React.forwardRef<any, any>((props: any, ref: any) => {
   const styles = StyleSheet.create({
