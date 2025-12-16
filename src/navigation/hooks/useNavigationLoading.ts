@@ -1,10 +1,12 @@
 import { useRef } from 'react';
 import { NavigationContainerRef } from '@react-navigation/native';
 import { useLoading } from '../components/loading-context';
+import { RootStackParamList } from '@navigation/constants/linking';
+
 
 export function useNavigationLoading() {
   const { showLoading, hideLoading } = useLoading();
-  const navigationRef = useRef<NavigationContainerRef<any>>(null);
+  const navigationRef = useRef<NavigationContainerRef<RootStackParamList> | null>(null);
   const routeNameRef = useRef<string | undefined>(undefined);
 
   const LOADING_DURATION = 1200;

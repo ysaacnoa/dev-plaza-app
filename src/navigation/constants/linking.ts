@@ -2,7 +2,7 @@ import { AppStackParamList } from "@navigation/app-stack";
 import { AuthStackParamList } from "@navigation/auth-stack";
 import { LinkingOptions } from "@react-navigation/native";
 
-type RootStackParamList = AppStackParamList & AuthStackParamList;
+export type RootStackParamList = AppStackParamList & AuthStackParamList;
 
 export const linking: LinkingOptions<RootStackParamList> = {
   prefixes: ['myapp://'],

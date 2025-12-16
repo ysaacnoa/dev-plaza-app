@@ -2,18 +2,26 @@ import {
   createStackNavigator,
   StackHeaderProps,
   StackNavigationOptions,
+  StackNavigationProp,
 } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { HomeScreen } from '@modules/home';
-import { Icon, IconName } from '@shared/components';
+import { Icon } from '@shared/components';
 import { Header, theme } from 'react-native-hooks';
 import { MovementsScreen } from '@modules/movements';
 import { ServicesScreen } from '@modules/services';
 import { CreditCardScreen } from '@modules/credit-card';
 import { LoansScreen } from '@modules/loans';
 import { ServiceDetailScreen } from '@modules/services/components/service-detail';
-import { SERVICES_DATA } from '@modules/services/constants/services.constants';
-import { FIXED_ICONS, FIXED_TITLES, HomeStackParamList } from './constants/navigation.constants';
+import {
+  ServiceItem,
+  SERVICES_DATA,
+} from '@modules/services/constants/services.constants';
+import {
+  FIXED_ICONS,
+  FIXED_TITLES,
+  HomeStackParamList,
+} from './constants/navigation.constants';
 
 const Stack = createStackNavigator<HomeStackParamList>();
 
@@ -47,6 +55,30 @@ function renderDefaultHeader(
       paddingTop={paddingTop}
       canGoBack={canGoBack}
       onBackPress={canGoBack ? props.navigation.goBack : undefined}
+    />
+  );
+}
+
+function renderDynamicHeader(
+  props: StackHeaderProps,
+  routeName: keyof HomeStackParamList,
+  navigation: StackNavigationProp<HomeStackParamList, 'ServiceDetail'>,
+  service: ServiceItem,
+  paddingTop: number,
+) {
+  return (
+    <Header
+      {...props}
+      title={service.title}
+      iconBackChild={
+        <Icon name="arrow-back" size={24} color={theme.colors.primary} />
+      }
+      iconChild={
+        <Icon name={service.icon} size={24} color={theme.colors.primary} />
+      }
+      paddingTop={paddingTop}
+      canGoBack={true}
+      onBackPress={() => navigation.goBack()}
     />
   );
 }
@@ -85,29 +117,14 @@ export function HomeStack() {
           )!;
 
           return {
-            header: props => (
-              <Header
-                {...props}
-                title={service.title}
-                iconBackChild={
-                  <Icon
-                    name="arrow-back"
-                    size={24}
-                    color={theme.colors.primary}
-                  />
-                }
-                iconChild={
-                  <Icon
-                    name={service.icon}
-                    size={24}
-                    color={theme.colors.primary}
-                  />
-                }
-                paddingTop={insets.top}
-                canGoBack={true}
-                onBackPress={() => navigation.goBack()}
-              />
-            ),
+            header: props =>
+              renderDynamicHeader(
+                props,
+                route.name,
+                navigation,
+                service,
+                insets.top,
+              ),
           };
         }}
       />

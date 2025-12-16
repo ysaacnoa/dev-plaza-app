@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 import { RootNavigator } from '@navigation/root-navigation';
 import { useAuth } from '@modules/auth/hooks/useAuth';
+import { LoadingProvider } from '@navigation/components/loading-context';
 
 jest.mock('@modules/auth/hooks/useAuth');
 const mockUseAuth = useAuth as jest.Mock;
@@ -28,7 +29,11 @@ describe('RootNavigator', () => {
       isLoggedIn: false,
     });
 
-    render(<RootNavigator />);
+    render(
+      <LoadingProvider>
+        <RootNavigator />
+      </LoadingProvider>
+    );
     
     expect(mockUseAuth).toHaveBeenCalled();
   });
@@ -48,7 +53,11 @@ describe('RootNavigator', () => {
       isLoggedIn: true,
     });
 
-    render(<RootNavigator />);
+    render(
+      <LoadingProvider>
+        <RootNavigator />
+      </LoadingProvider>
+    );
     
     expect(mockUseAuth).toHaveBeenCalled();
   });
