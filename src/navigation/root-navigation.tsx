@@ -3,12 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AuthStack } from './auth-stack';
 import { AppStack } from './app-stack';
 import { useAuth } from '@modules/auth/hooks/useAuth';
+import { linking } from './constants/linking';
 
 export function RootNavigator() {
   const { user } = useAuth();
 
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       {user ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
