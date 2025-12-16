@@ -25,7 +25,7 @@ export function Grid({ services }: GridProps) {
           <Card
             title={item.title}
             description={item.description}
-            iconChild={<Icon name={item.icon} size={36} color="white" />}
+            iconChild={<Icon name={item.icon} size={36} color="yellow" />}
             onPress={item.onPress}
           />
         )}
