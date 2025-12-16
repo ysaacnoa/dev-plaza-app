@@ -36,7 +36,7 @@ jest.mock('@modules/home/components', () => {
 jest.mock('react-native-hooks', () => {
   const { View } = require('react-native');
   return {
-    BannerCarousel: (props: any) => (
+    Carousel: (props: any) => (
       <View {...props} testID="banner-carousel" />
     ),
     theme: {

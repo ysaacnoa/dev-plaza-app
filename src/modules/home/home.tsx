@@ -6,7 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { IconName } from '@shared/components';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { BannerCarousel, theme } from 'react-native-hooks';
+import { Carousel, theme } from 'react-native-hooks';
 
 type HomeScreenNavigationProp = StackNavigationProp<HomeStackParamList, 'Home'>;
 
@@ -69,29 +69,28 @@ export function HomeScreen() {
         <Text style={styles.sectionTitle} testID="recent-title">
           Lo más reciente
         </Text>
-        <BannerCarousel
-          testID="banner-carousel"
-          banners={[
-            {
-              id: '1',
-              image:
-                'https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fwh08k610469i6eao2w81.jpeg',
-              url: 'https://via.placeholder.com/300x150',
-            },
-            {
-              id: '2',
-              image:
-                'https://www.inovex.de/wp-content/uploads/2018/03/react-native-1500x880.png',
-              url: 'https://via.placeholder.com/300x150',
-            },
-            {
-              id: '3',
-              image:
-                'https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fmcdsd800qtssxv23h1r4.png',
-              url: 'https://via.placeholder.com/300x150',
-            },
-          ]}
-        />
+        <View style={styles.carouselContainer}>
+          <Carousel
+            testID="banner-carousel"
+            data={[
+              {
+                id: '1',
+                localSource: require('@assets/images/carousel/nestJS.webp'),
+                url: 'https://via.placeholder.com/300x150',
+              },
+              {
+                id: '2',
+                localSource: require('@assets/images/carousel/Pnpm.webp'),
+                url: 'https://via.placeholder.com/300x150',
+              },
+              {
+                id: '3',
+                localSource: require('@assets/images/carousel/ReactNative.png'),
+                url: 'https://via.placeholder.com/300x150',
+              },
+            ]}
+          />
+        </View>
       </View>
     </ScrollView>
   );
@@ -105,11 +104,15 @@ const styles = StyleSheet.create({
   section: {
     paddingHorizontal: theme.spacing.lg,
   },
+  carouselContainer: {
+    width: '100%',
+    marginTop: 30,
+    height: 200,
+  },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
     color: theme.colors.text,
-    marginBottom: theme.spacing.md,
     marginTop: theme.spacing.lg,
   },
 });
