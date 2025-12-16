@@ -5673,9 +5673,9 @@ react-native-gesture-handler@^2.29.1:
     hoist-non-react-statics "^3.3.0"
     invariant "^2.2.4"
 
-"react-native-hooks@file:../native-hooks/native-hooks-0.0.4.tgz":
+"react-native-hooks@file:../native-hooks/native-hooks-0.0.5.tgz":
   version "0.1.0"
-  resolved "file:../native-hooks/native-hooks-0.0.4.tgz#efaa6f858ba27c8f2582d7eb4317987195e045e2"
+  resolved "file:../native-hooks/native-hooks-0.0.5.tgz#5adbced4b779dd4c49a09050052c12d20ef855a0"
 
 react-native-safe-area-context@^5.6.2:
   version "5.6.2"
