@@ -55,5 +55,17 @@
 	<array>
 		<string>Ionicons.ttf</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+  	<dict>
+    	<key>CFBundleURLName</key>
+    	<string>com.tuempresa.tuapp</string>
+    	<key>CFBundleURLSchemes</key>
+    	<array>
+      	<string>myapp</string>
+    	</array>
+  	</dict>
+	</array>
+
 </dict>
 </plist>
