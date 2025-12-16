@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { theme, AlertModal } from 'react-native-hooks';
+import { theme, AlertModal, getConnectionInfo } from 'react-native-hooks';
 import { Icon } from '@shared/components';
 import { SERVICES_DATA } from '../constants/services.constants';
 
@@ -20,9 +20,27 @@ export function ServiceDetailScreen() {
   )!;
 
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showNoInternetModal, setShowNoInternetModal] = useState(false);
 
-  const handlePay = () => {
-    setShowSuccessModal(true);
+  const handlePay = async () => {
+    try {
+      const connection = await getConnectionInfo();
+
+      const noInternet =
+        !connection.isConnected ||
+        connection.type === 'none' ||
+        connection.type === 'unknown';
+
+      if (noInternet) {
+        setShowNoInternetModal(true);
+        return;
+      }
+
+      setShowSuccessModal(true);
+    } catch (error) {
+      console.error('Error checking network status:', error);
+      setShowNoInternetModal(true);
+    }
   };
 
   const handleCloseModal = () => {
@@ -32,7 +50,6 @@ export function ServiceDetailScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Contenido principal */}
       <View style={styles.content}>
         <Icon name={service.icon} size={80} color={theme.colors.primary} />
         <Text style={styles.title}>{service.title}</Text>
@@ -69,6 +86,21 @@ export function ServiceDetailScreen() {
         description="Tu transacción ha sido procesada correctamente. Pronto recibirás la confirmación por email y en tu historial de movimientos."
         buttonText="Aceptar"
         onClose={handleCloseModal}
+      />
+
+      <AlertModal
+        isVisible={showNoInternetModal}
+        iconChild={
+          <Icon
+            name="wifi-outline"
+            size={64}
+            color={theme.colors.danger}
+          />
+        }
+        title="Sin conexión a internet"
+        description="Usted no tiene acceso a internet. Trate de establecer una conexión para continuar con el pago."
+        buttonText="Entendido"
+        onClose={() => setShowNoInternetModal(false)}
       />
     </View>
   );
@@ -113,7 +145,6 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingVertical: theme.spacing.md,
     paddingHorizontal: theme.spacing.lg,
-
     borderRadius: theme.radius.md,
   },
   buttonText: {
