@@ -34,6 +34,8 @@ export function LoginForm() {
         value={password}
         onChangeText={handleChangePassword}
         clearable
+        iconPasswordShow={<Icon name='eye'/>}
+        iconPasswordHide={<Icon name='eye-off'/>}
         iconClear={<Icon name='close-circle'/>}
       />
 
