@@ -1,8 +1,8 @@
 import { createBottomTabNavigator, BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { HomeStack } from './home-stack';
-import { ChatScreen } from '@modules/chat';
-import { SettingsScreen } from '@modules/settings';
+import { ChatStack } from './chat-stack';
+import { SettingsStack } from './settings-stack';
 import { Icon } from '@shared/components';
 import { theme } from 'react-native-hooks';
 import { BottomTabParamList, TAB_CONFIG } from './constants/navigation.constants';
@@ -54,7 +54,7 @@ export function BottomTabs() {
       />
       <Tab.Screen
         name="Chat"
-        component={ChatScreen}
+        component={ChatStack}
         options={{
           ...screenOptions,
           title: TAB_CONFIG.Chat.label,
@@ -63,7 +63,7 @@ export function BottomTabs() {
       />
       <Tab.Screen
         name="Settings"
-        component={SettingsScreen}
+        component={SettingsStack}
         options={{
           ...screenOptions,
           title: TAB_CONFIG.Settings.label,
