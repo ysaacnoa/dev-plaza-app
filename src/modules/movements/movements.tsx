@@ -1,4 +1,5 @@
 import { FlatList, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { theme, Tile } from 'react-native-hooks';
 import { MovementHeader } from './components/movement-header';
 import { Movement } from './mock/mock';
@@ -19,16 +20,19 @@ export function MovementsScreen() {
   const { totalIncome, totalExpense } = useMovementsTotals(data);
 
   return (
-    <View style={styles.container} testID="movements-screen">
+    <SafeAreaView
+      style={styles.container}
+      testID="movements-screen"
+      edges={[]}
+    >
       <FlatList
         testID="movements-list"
         data={data}
+        
         keyExtractor={item => item.id.toString()}
+        contentContainerStyle={{ paddingHorizontal: theme.spacing.lg}}
         renderItem={({ item }) => (
-          <View
-            style={{ marginHorizontal: theme.spacing.lg }}
-            testID={`movement-item-${item.id}`}
-          >
+          <View testID={`movement-item-${item.id}`}>
             <Tile
               category={item.category}
               description={item.description}
@@ -53,18 +57,15 @@ export function MovementsScreen() {
         onEndReachedThreshold={0.5}
         refreshing={loading}
         onRefresh={refresh}
+        showsHorizontalScrollIndicator={false}
       />
-    </View>
+    </SafeAreaView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: theme.spacing.none,
     backgroundColor: theme.colors.surface,
   },
   separator: { height: theme.spacing.md },
